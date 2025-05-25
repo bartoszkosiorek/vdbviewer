@@ -1,0 +1,20 @@
+
+project (viewer)
+cmake_minimum_required(VERSION 3.8)
+
+	find_package(OpenVDB REQUIRED)
+	find_package(Boost)
+	set(BOOST_INCLUDE_DIR "${BOOST_INCLUDE_DIR}" CACHE PATH "")
+	list(APPEND INCLUDE_PATHS ${BOOST_INCLUDE_DIR})
+	if(BOOST_FOUND)
+		message("Found Boost")
+		set(Boost_LIBRARY_DIRS Boost_LIBRARY_DIRS CACHE PATH "")
+	endif()
+	
+	if(OPENVDB_FOUND)
+		message("Found OpenVDB") 
+		list(APPEND INCLUDE_PATHS ${OPENVDB_INCLUDE_DIR})
+		list(APPEND F_LIB_PATHS ${OPENVDB_LIBRARY_DIR})
+		list(APPEND F_LIBS ${OPENVDB_LIBRARY})
+		add_definitions(${OPENVDB_DEFINITIONS})
+	endif()
